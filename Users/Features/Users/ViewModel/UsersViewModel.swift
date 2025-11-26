@@ -35,8 +35,7 @@ extension UsersViewModel {
         logger.debug("Fetching users from: \(endpoint.url)")
 
         do {
-            let object: Stackoverflow<User> = try await network.get(url: endpoint.url)
-            self.users = object.items
+            self.users = try await network.get(url: endpoint.url)
             self.error = nil
             logger.info("Retrieved \(users.count) users(s)")
         } catch let error as ServiceError {

@@ -21,13 +21,17 @@ struct Network {
 
 extension Network {
 	/// Generic GET request with automatic JSON parsing
-	func get<T: Decodable>(url: URL) async throws -> T {
+	func get<T: Decodable>(url: URL) async throws -> [T] {
 		do {
-			let data = try await service.get(url: url, headers: authorization)
-			guard let parsed: T = parse(data) else {
+            let data = try await service.get(url: url, headers: authorization)
+			guard let parsed: Stackoverflow<T> = parse(data) else {
 				throw ServiceError.parsing
 			}
-			return parsed
+            if let id = parsed.errorId,
+               let errorMessage = parsed.errorMessage {
+                throw ServiceError.error(reason: .init(error: "\(id)", errorDescription: errorMessage))
+            }
+            return parsed.items
 		} catch let error as NetworkServicesError {
 			throw process(error: error)
 		} catch {

@@ -5,4 +5,6 @@ struct Stackoverflow<T: Decodable>: Decodable {
     let hasMore: Bool
     let quotaMax: Int
     let quotaRemaining: Int
+    let errorId: Int?
+    let errorMessage: String?
 }
