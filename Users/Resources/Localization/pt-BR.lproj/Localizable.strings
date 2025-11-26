@@ -1,0 +1,39 @@
+/*
+  Portuguese (Brazil) Localization
+*/
+
+// MARK: - General -
+"general.all" = "Todos";
+"general.create" = "Criar";
+"general.cancel" = "Cancelar";
+
+// MARK: - Accounts -
+"accounts.segmented.all" = "Todos";
+"accounts.segmented.in" = "Entrada";
+"accounts.segmented.out" = "Saída";
+"accounts.roundup.label" = "Arredondar";
+"accounts.button.addToGoal" = "Adicionar à Meta";
+"accounts.error.noTransactions" = "Nenhuma transação encontrada.";
+"accounts.error.reason" = "Motivo: %@";
+
+// MARK: - Goals -
+"goals.title" = "Metas";
+"goals.textfield.placeholder" = "Digite o nome para uma nova meta";
+"goals.button.create" = "Criar";
+"goals.label.selectGoal" = "ou selecione uma meta existente para adicionar o valor";
+"goals.label.amountAvailable" = "Valor disponível para economizar: %@";
+"goals.error.cannotProceed" = "Não é possível prosseguir.";
+"goals.error.enterName" = "Digite um nome para a Meta de Economia.";
+"goals.empty.message" = "Não há Metas de Economia para adicionar dinheiro.\nCrie uma nova.";
+
+// MARK: - Network Errors -
+"error.network" = "Erro de rede.";
+"error.network.detailed" = "Não foi possível conectar. Verifique sua conexão com a internet.";
+"error.parsing" = "Erro ao analisar resposta.";
+"error.missingBody" = "Corpo da requisição está faltando.";
+
+// MARK: - Accessibility -
+"accessibility.newGoalField" = "Campo de texto para nome da nova meta";
+"accessibility.createGoalButton" = "Botão para criar meta";
+"accessibility.previousWeekButton" = "Semana anterior";
+"accessibility.nextWeekButton" = "Próxima semana";

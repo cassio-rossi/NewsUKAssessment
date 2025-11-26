@@ -1,0 +1,59 @@
+{
+  "configurations" : [
+    {
+      "id" : "7047CCED-BA27-464A-939F-D44F5BC3514B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Users.xcodeproj",
+      "identifier" : "9B4B1FBA2ED71C6300E137E6",
+      "name" : "Users"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/AnalyticsLibrary",
+        "identifier" : "AnalyticsLibraryTests",
+        "name" : "AnalyticsLibraryTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Users.xcodeproj",
+        "identifier" : "9B4B1FDA2ED71C6400E137E6",
+        "name" : "UsersUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/LoggerLibrary",
+        "identifier" : "LoggerLibraryTests",
+        "name" : "LoggerLibraryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/NetworkLibrary",
+        "identifier" : "NetworkLibraryTests",
+        "name" : "NetworkLibraryTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Users.xcodeproj",
+        "identifier" : "9B4B1FD02ED71C6400E137E6",
+        "name" : "UsersTests"
+      }
+    }
+  ],
+  "version" : 1
+}

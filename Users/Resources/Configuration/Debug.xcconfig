@@ -1,0 +1,15 @@
+//
+//  Debug.xcconfig
+//
+//  Configuration for Debug/Sandbox environment
+//  WARNING: This file contains sensitive data and should NOT be committed to git
+//
+
+// Sandbox API Configuration
+API_TOKEN = YOUR_SANDBOX_TOKEN_HERE
+
+// Certificate names for SSL pinning (comma-separated if multiple)
+CERTIFICATES = YOUR_SANDBOX_CERTIFICATE_HERE
+
+// API Base URL
+BASE_URL = https:/$()/api.stackexchange.com/2.2

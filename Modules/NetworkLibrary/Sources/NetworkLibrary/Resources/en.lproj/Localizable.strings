@@ -1,0 +1,5 @@
+// NETWORK
+"An error occurred while fetching data" = "An error occurred while fetching data";
+"An error occurred while decoding data" = "An error occurred while decoding data";
+"An error occurred while fetching with data: %@" = "An error occurred while fetching with data: %@";
+"No data received from the request" = "No data received from the request";

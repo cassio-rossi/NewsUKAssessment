@@ -1,0 +1,9 @@
+{
+    "kind": "youtube#kind",
+    "etag": "stag",
+    "nextPageToken": "token",
+    "pageInfo": {
+        "totalResults": 50,
+        "resultsPerPage": 1
+    }
+}
