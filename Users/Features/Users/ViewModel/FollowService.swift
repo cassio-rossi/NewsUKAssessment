@@ -4,6 +4,7 @@ import LoggerLibrary
 
 // MARK: - Follow Service Protocol -
 
+@MainActor
 protocol FollowServiceProtocol {
     var followedUsersPublisher: AnyPublisher<Set<Int>, Never> { get }
 
@@ -15,6 +16,7 @@ protocol FollowServiceProtocol {
 
 // MARK: - Follow Service -
 
+@MainActor
 final class FollowService: FollowServiceProtocol {
     // MARK: - Properties -
 

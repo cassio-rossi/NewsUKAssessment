@@ -124,6 +124,6 @@ extension UsersCollectionViewController: UICollectionViewDelegateFlowLayout {
         let availableWidth = collectionView.bounds.width - totalSpacing
         let width = floor(availableWidth / numberOfColumns)
 
-        return CGSize(width: width, height: 200)
+        return CGSize(width: width, height: 230)
     }
 }

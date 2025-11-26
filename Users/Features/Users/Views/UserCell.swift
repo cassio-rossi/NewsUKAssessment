@@ -72,8 +72,54 @@ final class UserCell: UICollectionViewCell {
         return button
     }()
 
+    // Reputation badge (top right)
+    private let reputationBadge: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 10, weight: .bold)
+        label.textColor = .white
+        label.backgroundColor = .systemOrange
+        label.textAlignment = .center
+        label.layer.cornerRadius = 10
+        label.layer.masksToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // Badge counts
+    private lazy var goldBadgeView = createBadgeView(color: .systemYellow)
+    private lazy var silverBadgeView = createBadgeView(color: .systemGray)
+    private lazy var bronzeBadgeView = createBadgeView(color: .systemBrown)
+
+    private lazy var badgesStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [goldBadgeView, silverBadgeView, bronzeBadgeView])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.distribution = .fillEqually
+        return stack
+    }()
+
+    private func createBadgeView(color: UIColor) -> UIStackView {
+        let iconLabel = UILabel()
+        iconLabel.text = "●"
+        iconLabel.font = .systemFont(ofSize: 12, weight: .bold)
+        iconLabel.textColor = color
+
+        let countLabel = UILabel()
+        countLabel.font = .systemFont(ofSize: 11, weight: .medium)
+        countLabel.textColor = .secondaryLabel
+        countLabel.textAlignment = .left
+
+        let stack = UIStackView(arrangedSubviews: [iconLabel, countLabel])
+        stack.axis = .horizontal
+        stack.spacing = 2
+        stack.alignment = .center
+
+        return stack
+    }
+
     private lazy var contentStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [nameLabel, locationStackView, followButton])
+        let stack = UIStackView(arrangedSubviews: [badgesStackView, nameLabel, locationStackView, followButton])
         stack.axis = .vertical
         stack.spacing = 8
         stack.alignment = .fill
@@ -104,6 +150,12 @@ final class UserCell: UICollectionViewCell {
         isFollowing = false
         userId = nil
         onFollowTapped = nil
+
+        // Reset badges
+        (goldBadgeView.arrangedSubviews[1] as? UILabel)?.text = nil
+        (silverBadgeView.arrangedSubviews[1] as? UILabel)?.text = nil
+        (bronzeBadgeView.arrangedSubviews[1] as? UILabel)?.text = nil
+        reputationBadge.text = nil
     }
 
     override func layoutSubviews() {
@@ -125,6 +177,14 @@ final class UserCell: UICollectionViewCell {
             locationStackView.isHidden = true
         }
 
+        // Configure badge counts
+        (goldBadgeView.arrangedSubviews[1] as? UILabel)?.text = "\(user.badgeCounts.gold.formated)"
+        (silverBadgeView.arrangedSubviews[1] as? UILabel)?.text = "\(user.badgeCounts.silver.formated)"
+        (bronzeBadgeView.arrangedSubviews[1] as? UILabel)?.text = "\(user.badgeCounts.bronze.formated)"
+
+        // Configure reputation badge
+        reputationBadge.text = user.reputation.formated
+
         imageLoadTask?.cancel()
         profileImageView.image = nil
 
@@ -142,6 +202,7 @@ private extension UserCell {
     func setupViews() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(contentStackView)
+        contentView.addSubview(reputationBadge)
 
         NSLayoutConstraint.activate([
             // Profile image at the top, centered
@@ -149,6 +210,12 @@ private extension UserCell {
             profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             profileImageView.widthAnchor.constraint(equalToConstant: 80),
             profileImageView.heightAnchor.constraint(equalToConstant: 80),
+
+            // Reputation badge in top right corner
+            reputationBadge.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            reputationBadge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            reputationBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
+            reputationBadge.heightAnchor.constraint(equalToConstant: 20),
 
             // Location icon size
             locationIconImageView.widthAnchor.constraint(equalToConstant: 14),

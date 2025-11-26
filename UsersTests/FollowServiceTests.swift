@@ -40,6 +40,7 @@ struct FollowServiceTests {
     // MARK: - Basic Follow/Unfollow Tests -
 
     @Test
+    @MainActor
     func testFollowUser() throws {
         let mockStorage = MockStorage()
         let service = FollowService(
@@ -57,6 +58,7 @@ struct FollowServiceTests {
     }
 
     @Test
+    @MainActor
     func testUnfollowUser() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -73,6 +75,7 @@ struct FollowServiceTests {
     }
 
     @Test
+    @MainActor
     func testToggleFollow() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -94,6 +97,7 @@ struct FollowServiceTests {
     // MARK: - Multiple Users Tests -
 
     @Test
+    @MainActor
     func testFollowMultipleUsers() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -110,6 +114,7 @@ struct FollowServiceTests {
     }
 
     @Test
+    @MainActor
     func testUnfollowOneOfMultipleUsers() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -132,6 +137,7 @@ struct FollowServiceTests {
     // MARK: - Persistence Tests -
 
     @Test
+    @MainActor
     func testFollowedUsersArePersisted() throws {
         let mockStorage = MockStorage()
 
@@ -149,6 +155,7 @@ struct FollowServiceTests {
     }
 
     @Test
+    @MainActor
     func testUnfollowPersists() throws {
         let mockStorage = MockStorage()
 
@@ -169,6 +176,7 @@ struct FollowServiceTests {
     // MARK: - Edge Cases -
 
     @Test
+    @MainActor
     func testFollowingSameUserTwice() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -182,6 +190,7 @@ struct FollowServiceTests {
     }
 
     @Test
+    @MainActor
     func testUnfollowingUserNotFollowed() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -195,6 +204,7 @@ struct FollowServiceTests {
     }
 
     @Test
+    @MainActor
     func testIsFollowingWithEmptyStorage() throws {
         let mockStorage = MockStorage()
         let service = FollowService(storage: mockStorage)
@@ -209,6 +219,7 @@ struct FollowServiceTests {
 struct StorageServiceTests {
 
     @Test
+    @MainActor
     func testSaveAndLoadString() throws {
         let mockDefaults = UserDefaults(suiteName: "test.storage")
         // swiftlint:disable:next force_unwrapping
@@ -225,6 +236,7 @@ struct StorageServiceTests {
     }
 
     @Test
+    @MainActor
     func testSaveAndLoadSet() throws {
         let mockDefaults = UserDefaults(suiteName: "test.storage.set")
         // swiftlint:disable:next force_unwrapping
@@ -241,6 +253,7 @@ struct StorageServiceTests {
     }
 
     @Test
+    @MainActor
     func testLoadNonExistentKey() throws {
         let mockDefaults = UserDefaults(suiteName: "test.storage.nonexistent")
         // swiftlint:disable:next force_unwrapping
@@ -254,6 +267,7 @@ struct StorageServiceTests {
     }
 
     @Test
+    @MainActor
     func testRemoveValue() throws {
         let mockDefaults = UserDefaults(suiteName: "test.storage.remove")
         // swiftlint:disable:next force_unwrapping
@@ -270,6 +284,7 @@ struct StorageServiceTests {
     }
 
     @Test
+    @MainActor
     func testExists() throws {
         let mockDefaults = UserDefaults(suiteName: "test.storage.exists")
         // swiftlint:disable:next force_unwrapping

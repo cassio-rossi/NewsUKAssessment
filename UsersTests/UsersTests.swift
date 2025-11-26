@@ -12,6 +12,7 @@ struct UsersViewModelTests {
 
     // MARK: - Test Helpers -
 
+    @MainActor
     private func createMockFollowService() -> FollowService {
         return FollowService(storage: MockStorage())
     }
@@ -102,6 +103,7 @@ struct UsersViewModelTests {
     // MARK: - Follow Tests -
 
     @Test
+    @MainActor
     func testIsFollowingUser() {
         let mockStorage = MockStorage()
         let mockFollowService = FollowService(storage: mockStorage)
@@ -124,6 +126,7 @@ struct UsersViewModelTests {
     }
 
     @Test
+    @MainActor
     func testToggleFollowUser() {
         let mockStorage = MockStorage()
         let mockFollowService = FollowService(storage: mockStorage)
