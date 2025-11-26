@@ -1,5 +1,5 @@
-@testable import NetworkLibrary
 import Foundation
+@testable import NetworkLibrary
 import Testing
 
 @Suite("String Extensions Tests")
@@ -17,6 +17,7 @@ struct StringExtensionsTests {
         components.second = 0
         components.timeZone = TimeZone(abbreviation: "GMT")
 
+        // swiftlint:disable:next force_unwrapping
         self.date = Calendar.current.date(from: components)!
     }
 

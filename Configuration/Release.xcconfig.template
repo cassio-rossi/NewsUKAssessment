@@ -1,0 +1,13 @@
+//
+//  Release.xcconfig.template
+//
+//  Template for Release/Production environment configuration
+//
+//  SETUP INSTRUCTIONS:
+//  1. Copy this file to Release.xcconfig (remove .template)
+//  2. Never commit the Release.xcconfig file to git
+//  3. In CI/CD, inject these values as environment variables
+//
+
+// API Base URL
+BASE_URL = https:/$()/api.stackexchange.com/2.2

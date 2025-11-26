@@ -1,0 +1,12 @@
+//
+//  Debug.xcconfig.template
+//
+//  Template for Debug/Sandbox environment configuration
+//
+//  SETUP INSTRUCTIONS:
+//  1. Copy this file to Debug.xcconfig (remove .template)
+//  2. Never commit the Debug.xcconfig file to git
+//
+
+// API Base URL
+BASE_URL = https:/$()/api.stackexchange.com/2.2

@@ -9,10 +9,5 @@
 // NOTE: Replace these values with actual production credentials
 // In CI/CD, these should be injected as environment variables
 
-API_TOKEN = YOUR_PRODUCTION_TOKEN_HERE
-
-// Certificate names for SSL pinning (comma-separated if multiple)
-CERTIFICATES = YOUR_PRODUCTION_CERTIFICATE_HERE
-
 // API Base URL
 BASE_URL = https:/$()/api.stackexchange.com/2.2

@@ -2,8 +2,8 @@ import AnalyticsLibrary
 import Foundation
 import LoggerLibrary
 import NetworkLibrary
-@testable import Users
 import Testing
+@testable import Users
 
 final class BundleTestUsersViewModel {}
 

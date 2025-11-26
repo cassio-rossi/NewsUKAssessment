@@ -1,5 +1,5 @@
-@testable import NetworkLibrary
 import Foundation
+@testable import NetworkLibrary
 import Testing
 
 @Suite("Date Extensions Tests")
@@ -17,6 +17,7 @@ struct DateExtensionsTests {
         components.second = 50
         components.timeZone = TimeZone(abbreviation: "BRT")
 
+        // swiftlint:disable:next force_unwrapping
         self.date = Calendar.current.date(from: components)!
     }
 
@@ -73,6 +74,7 @@ struct DateExtensionsTests {
         components.second = 50
         components.timeZone = TimeZone(abbreviation: "GMT")
 
+        // swiftlint:disable:next force_unwrapping
         let gmtDate = Calendar.current.date(from: components)!
 
         let value = gmtDate.format(using: .dateTime)
