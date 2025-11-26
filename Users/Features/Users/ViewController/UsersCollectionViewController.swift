@@ -73,8 +73,26 @@ class UsersCollectionViewController: UICollectionViewController {
             fatalError("Unable to dequeue UserCell")
         }
 
-        cell.configure(with: users[indexPath.item])
+        let user = users[indexPath.item]
+        cell.configure(with: user)
+        cell.isFollowing = viewModel?.isFollowing(userId: user.userId) ?? false
+        cell.onFollowTapped = { [weak self] userId in
+            self?.handleFollowTapped(userId: userId)
+        }
+
         return cell
+    }
+}
+
+private extension UsersCollectionViewController {
+    func handleFollowTapped(userId: Int) {
+        viewModel?.toggleFollow(userId: userId)
+
+        // Update the specific cell
+        if let index = users.firstIndex(where: { $0.userId == userId }),
+           let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? UserCell {
+            cell.isFollowing = viewModel?.isFollowing(userId: userId) ?? false
+        }
     }
 }
 

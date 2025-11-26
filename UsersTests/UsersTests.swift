@@ -10,6 +10,12 @@ final class BundleTestUsersViewModel {}
 @Suite("UsersViewModel")
 struct UsersViewModelTests {
 
+    // MARK: - Test Helpers -
+
+    private func createMockFollowService() -> FollowService {
+        return FollowService(storage: MockStorage())
+    }
+
     // MARK: - Network Request Tests -
 
     @Test
@@ -27,7 +33,8 @@ struct UsersViewModelTests {
                 customHost: CustomHost(host: "test.local", path: "")
             ),
             logger: Logger(category: "UsersViewModelTests"),
-            analytics: Analytics()
+            analytics: Analytics(),
+            followService: createMockFollowService()
         )
 
         try await viewModel.getUsers()
@@ -46,7 +53,8 @@ struct UsersViewModelTests {
                 customHost: CustomHost(host: "test.local", path: "/2.2")
             ),
             logger: Logger(category: "UsersViewModelTests"),
-            analytics: Analytics()
+            analytics: Analytics(),
+            followService: createMockFollowService()
         )
 
         do {
@@ -72,7 +80,8 @@ struct UsersViewModelTests {
                 customHost: CustomHost(host: "test.local", path: "")
             ),
             logger: Logger(category: "UsersViewModelTests"),
-            analytics: Analytics()
+            analytics: Analytics(),
+            followService: createMockFollowService()
         )
 
         do {
@@ -88,5 +97,58 @@ struct UsersViewModelTests {
                 Issue.record("Should have an error object")
             }
         }
+    }
+
+    // MARK: - Follow Tests -
+
+    @Test
+    func testIsFollowingUser() {
+        let mockStorage = MockStorage()
+        let mockFollowService = FollowService(storage: mockStorage)
+        let viewModel = UsersViewModel(
+            network: Network(
+                service: NetworkServicesFailed(),
+                bearer: nil,
+                customHost: CustomHost(host: "test.local", path: "")
+            ),
+            logger: Logger(category: "UsersViewModelTests"),
+            analytics: Analytics(),
+            followService: mockFollowService
+        )
+
+        let userId = 123
+        #expect(!viewModel.isFollowing(userId: userId))
+
+        mockFollowService.follow(userId: userId)
+        #expect(viewModel.isFollowing(userId: userId))
+    }
+
+    @Test
+    func testToggleFollowUser() {
+        let mockStorage = MockStorage()
+        let mockFollowService = FollowService(storage: mockStorage)
+        let viewModel = UsersViewModel(
+            network: Network(
+                service: NetworkServicesFailed(),
+                bearer: nil,
+                customHost: CustomHost(host: "test.local", path: "")
+            ),
+            logger: Logger(category: "UsersViewModelTests"),
+            analytics: Analytics(),
+            followService: mockFollowService
+        )
+
+        let userId = 456
+
+        // Initially not following
+        #expect(!viewModel.isFollowing(userId: userId))
+
+        // Toggle to follow
+        viewModel.toggleFollow(userId: userId)
+        #expect(viewModel.isFollowing(userId: userId))
+
+        // Toggle to unfollow
+        viewModel.toggleFollow(userId: userId)
+        #expect(!viewModel.isFollowing(userId: userId))
     }
 }

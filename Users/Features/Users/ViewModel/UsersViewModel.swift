@@ -11,6 +11,7 @@ final class UsersViewModel {
     let network: Network
     let logger: LoggerProtocol
     let analytics: AnalyticsProtocol
+    let followService: FollowServiceProtocol
 
     var users = [User]()
     var error: ServiceError?
@@ -19,10 +20,12 @@ final class UsersViewModel {
 
     init(network: Network,
          logger: LoggerProtocol,
-         analytics: AnalyticsProtocol) {
+         analytics: AnalyticsProtocol,
+         followService: FollowServiceProtocol) {
         self.network = network
         self.logger = logger
         self.analytics = analytics
+        self.followService = followService
     }
 }
 
@@ -43,5 +46,23 @@ extension UsersViewModel {
             self.error = error
             throw error
         }
+    }
+}
+
+// MARK: - Follow Methods -
+
+extension UsersViewModel {
+    func isFollowing(userId: Int) -> Bool {
+        return followService.isFollowing(userId: userId)
+    }
+
+    func toggleFollow(userId: Int) {
+        followService.toggleFollow(userId: userId)
+        let isFollowing = followService.isFollowing(userId: userId)
+        analytics.track(.buttonTap(
+            name: isFollowing ? "follow_user" : "unfollow_user",
+            screen: "Users"
+        ))
+        logger.debug("User \(userId) follow status: \(isFollowing)")
     }
 }

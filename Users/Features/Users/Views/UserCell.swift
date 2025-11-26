@@ -6,6 +6,9 @@ final class UserCell: UICollectionViewCell {
     // MARK: - Properties -
 
     private var imageLoadTask: Task<Void, Never>?
+    private var userId: Int?
+    var onFollowTapped: ((Int) -> Void)?
+
     var isFollowing: Bool = false {
         didSet {
             updateFollowButton()
@@ -99,6 +102,8 @@ final class UserCell: UICollectionViewCell {
         nameLabel.text = nil
         locationLabel.text = nil
         isFollowing = false
+        userId = nil
+        onFollowTapped = nil
     }
 
     override func layoutSubviews() {
@@ -110,6 +115,7 @@ final class UserCell: UICollectionViewCell {
     // MARK: - Configuration
 
     func configure(with user: User) {
+        userId = user.userId
         nameLabel.text = user.displayName
 
         if let location = user.location, !location.isEmpty {
@@ -124,6 +130,11 @@ final class UserCell: UICollectionViewCell {
 
         guard let imageUrl = user.profileImage else { return }
         load(imageUrl: imageUrl)
+    }
+
+    @objc private func followButtonTapped() {
+        guard let userId = userId else { return }
+        onFollowTapped?(userId)
     }
 }
 
@@ -154,6 +165,9 @@ private extension UserCell {
         ])
 
         profileImageView.layer.cornerRadius = 40
+
+        // Add button action
+        followButton.addTarget(self, action: #selector(followButtonTapped), for: .touchUpInside)
     }
 
     func setupAppearance() {

@@ -5,8 +5,10 @@ import NetworkLibrary
 
 struct ViewModelFactory {
 	/// Default configuration - can be overridden for different environments
-	/// In a production app, this might come from dependency injection container
 	static var configuration: AppConfiguration = DefaultConfiguration()
+
+	/// Dependency container managing service instances
+	static var dependencies: DependencyContainer = .default
 
 #if DEBUG
 	static var usersViewModel: UsersViewModel {
@@ -36,8 +38,9 @@ extension ViewModelFactory {
 
 		let viewModel = UsersViewModel(
             network: network,
-            logger: Logger(category: "StalingBankAssessment"),
-            analytics: Analytics()
+            logger: dependencies.logger,
+            analytics: dependencies.analytics,
+            followService: dependencies.followService
 		)
 
         return viewModel
@@ -64,8 +67,9 @@ extension ViewModelFactory {
 
             return UsersViewModel(
                 network: network,
-                logger: Logger(category: "Mock"),
-                analytics: Analytics()
+                logger: dependencies.logger,
+                analytics: dependencies.analytics,
+                followService: dependencies.followService
             )
         } else {
             return nil
