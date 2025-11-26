@@ -9,7 +9,7 @@ class MainViewController: UIViewController {
     private let logger = Logger(category: "stackoverflow.users")
     private let analytics = Analytics()
     private let viewModel: UsersViewModel = ViewModelFactory.usersViewModel
-    private var usersViewController: UIViewController?
+    private var usersViewController: UsersCollectionViewController?
 
     // MARK: - UI Components -
 
@@ -46,7 +46,9 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        title = "Users"
+
         setupUI()
         setupUsersViewController()
         fetchUsers()
@@ -76,7 +78,7 @@ private extension MainViewController {
     }
 
     func setupUsersViewController() {
-        let usersVC = UIViewController() // UsersCollectionViewController()
+        let usersVC = UsersCollectionViewController()
         usersViewController = usersVC
         addChild(usersVC)
 
@@ -107,7 +109,7 @@ private extension MainViewController {
                 try await viewModel.getUsers()
                 logger.info("\(viewModel.users.count) users loaded")
                 containerView.isHidden = false
-                // usersViewController?.update(viewModel: viewModel)
+                usersViewController?.update(viewModel: viewModel)
             } catch {
                 logger.error("Failed to load users: \(error)")
                 errorMessage.text = viewModel.error?.description
