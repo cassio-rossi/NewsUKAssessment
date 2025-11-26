@@ -46,7 +46,7 @@ jobs:
     - name: Setup Configuration
       run: |
         # Create Debug.xcconfig from template with placeholder token for CI builds
-        sed Configuration/Debug.xcconfig.template > Configuration/Debug.xcconfig
+        cp Configuration/Debug.xcconfig.template Configuration/Debug.xcconfig
         echo "Debug.xcconfig created successfully"
 
     - name: Set Default Scheme
