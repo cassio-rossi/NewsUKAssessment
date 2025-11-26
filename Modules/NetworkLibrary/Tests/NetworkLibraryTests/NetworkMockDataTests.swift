@@ -42,7 +42,7 @@ struct NetworkMockDataTests {
 
         // Then
         let result = try #require(data, "Should convert base64 string to data")
-        #expect(result.count > 0, "Data should not be empty")
+        #expect(!result.isEmpty, "Data should not be empty")
 
         // Verify it's valid JSON
         let decoded = try? JSONDecoder().decode([NetworkMockData].self, from: result)
@@ -83,7 +83,7 @@ struct NetworkMockDataTests {
 
         // Step 3: Base64 String → Data (decoding side - App)
         let data = try #require(environmentString.asBase64data, "Step 3: Should convert to data")
-        #expect(data.count > 0, "Step 3: Data should not be empty")
+        #expect(!data.isEmpty, "Step 3: Data should not be empty")
 
         // Step 4: Data → Object (decoding side - App)
         let decoded: [NetworkMockData]? = data.asObject()
@@ -133,10 +133,10 @@ struct NetworkMockDataTests {
         let result = try #require(decoded, "Should decode successfully")
         #expect(result.count == 3, "Should have 3 elements")
 
-        for i in 0..<3 {
-            #expect(result[i].api == original[i].api, "API[\(i)] should match")
-            #expect(result[i].filename == original[i].filename, "Filename[\(i)] should match")
-            #expect(result[i].bundlePath == original[i].bundlePath, "Bundle path[\(i)] should match")
+        for index in 0..<3 {
+            #expect(result[index].api == original[index].api, "API[\(index)] should match")
+            #expect(result[index].filename == original[index].filename, "Filename[\(index)] should match")
+            #expect(result[index].bundlePath == original[index].bundlePath, "Bundle path[\(index)] should match")
         }
     }
 
