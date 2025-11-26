@@ -9,11 +9,10 @@ struct NetworkServicesTests {
     @MainActor
     func validResponse() async throws {
         let host = try #require(URL(string: "example/test"), "Should create valid URL")
-
-        let data = try await NetworkServicesMock(
-            bundle: Bundle.module,
-            mapper: ["example/test": "example"]
-        ).get(url: host, headers: nil)
+        let mapper = [
+            NetworkMockData(api: "example/test", filename: "example", bundlePath: Bundle.module.bundlePath)
+        ]
+        let data = try await NetworkServicesMock(mapper: mapper).get(url: host, headers: nil)
         #expect(!data.isEmpty)
     }
 
@@ -23,7 +22,7 @@ struct NetworkServicesTests {
         let host = try #require(URL(string: "invalid"), "Should create valid URL")
 
         await #expect(throws: NetworkServicesError.network) {
-            try await NetworkServicesMock(bundle: Bundle.module).get(url: host, headers: nil)
+            try await NetworkServicesMock().get(url: host, headers: nil)
         }
     }
 

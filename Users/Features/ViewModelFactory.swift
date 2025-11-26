@@ -46,21 +46,20 @@ extension ViewModelFactory {
 
 #if DEBUG
 extension ViewModelFactory {
+    // When doing UI tests, we need to mock the ViewModel to load local data otherwise
     fileprivate static func loadMockViewModel() -> UsersViewModel? {
-        if ProcessInfo.processInfo.arguments.contains("mock") {
-            let bundle = {
-                guard let bundle = ProcessInfo.processInfo.environment["bundle"] else {
-                    return Bundle.main
-                }
-                return Bundle(path: bundle) ?? Bundle.main
-            }()
+        if ProcessInfo.processInfo.arguments.contains("mock"),
+           let environment = ProcessInfo.processInfo.environment["mapper"],
+           let data = environment.asBase64data,
+           let mapper: [NetworkMockData] = data.asObject() {
 
-            let networkService = NetworkServicesMock(bundle: bundle)
+            let networkService = NetworkServicesMock(mapper: mapper)
+
             // Mock still needs a customHost for the endpoint URLs to be generated
             let network = Network(
                 service: networkService,
                 bearer: nil,
-                customHost: CustomHost(host: "mock.local", path: "/2.2")
+                customHost: CustomHost(host: "mock.local", path: "")
             )
 
             return UsersViewModel(

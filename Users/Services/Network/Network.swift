@@ -34,6 +34,8 @@ extension Network {
             return parsed.items
 		} catch let error as NetworkServicesError {
 			throw process(error: error)
+        } catch let error as ServiceError {
+            throw error
 		} catch {
 			throw ServiceError.network
 		}

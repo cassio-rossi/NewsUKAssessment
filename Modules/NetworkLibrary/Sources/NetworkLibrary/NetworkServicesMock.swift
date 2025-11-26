@@ -5,8 +5,7 @@ import Foundation
 
 public final class NetworkServicesMock: NSObject, NetworkServicesProtocol {
 
-	private var bundle: Bundle?
-    private var mapper: [String: String] = [:]
+    private var mapper = [NetworkMockData]()
 
 	/// Custom host allows to replace the default host used by the library
 	/// allowing the usage of different environments like `debug`, `qa` or `production`
@@ -20,16 +19,13 @@ public final class NetworkServicesMock: NSObject, NetworkServicesProtocol {
 
     /// Initialization method
     ///
-    /// - Parameter bundle: The bundle to allow the retrieval of local data from the App
     /// - Parameter customHost: A custom host object to allow override of host, path and api
     /// - Parameter certificates: An array of certificates to help SSL pinning
-    /// - Parameter mapper: A dictionary mapping api against local file for mocking purposes
-    public convenience init(bundle: Bundle,
-                            customHost: CustomHost? = nil,
+    /// - Parameter mapper: A NetworkMockData object mapping api against local file for mocking purposes
+    public convenience init(customHost: CustomHost? = nil,
                             certificates: [SecCertificate]? = nil,
-                            mapper: [String: String] = [:]) {
+                            mapper: [NetworkMockData] = []) {
         self.init()
-        self.bundle = bundle
         self.customHost = customHost
         self.certificates = certificates
         self.mapper = mapper
@@ -50,8 +46,17 @@ private extension NetworkServicesMock {
     func loadFile(from url: URL) async throws -> Data {
         // Determine which mock file to load based on the URL path
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-              let file = mapper[components.path],
-              let path = (bundle ?? Bundle.main).path(forResource: file, ofType: "json"),
+              let mockObject = mapper.first(where: { $0.api == components.path }) else {
+            throw NetworkServicesError.network
+        }
+        let bundle = {
+            if let bundlePath = mockObject.bundlePath {
+                Bundle(path: bundlePath)
+            } else {
+                Bundle.main
+            }
+        }()
+            guard let path = bundle?.path(forResource: mockObject.filename, ofType: "json"),
               let content = FileManager.default.contents(atPath: path) else {
             throw NetworkServicesError.network
         }

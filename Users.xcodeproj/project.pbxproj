@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B1EADAD2ED7746000519C02 /* NetworkLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 9B1EADAC2ED7746000519C02 /* NetworkLibrary */; };
 		9B4B20002ED71F9F00E137E6 /* AnalyticsLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 9B4B1FFF2ED71F9F00E137E6 /* AnalyticsLibrary */; };
 		9B4B20022ED71F9F00E137E6 /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 9B4B20012ED71F9F00E137E6 /* Logger */; };
 		9B4B20042ED71F9F00E137E6 /* NetworkLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 9B4B20032ED71F9F00E137E6 /* NetworkLibrary */; };
@@ -108,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B1EADAD2ED7746000519C02 /* NetworkLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +216,7 @@
 			);
 			name = UsersUITests;
 			packageProductDependencies = (
+				9B1EADAC2ED7746000519C02 /* NetworkLibrary */,
 			);
 			productName = UsersUITests;
 			productReference = 9B4B1FDB2ED71C6400E137E6 /* UsersUITests.xctest */;
@@ -641,6 +644,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9B1EADAC2ED7746000519C02 /* NetworkLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkLibrary;
+		};
 		9B4B1FFF2ED71F9F00E137E6 /* AnalyticsLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnalyticsLibrary;

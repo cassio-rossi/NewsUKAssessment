@@ -48,4 +48,5 @@ extension String {
 
 extension String {
 	public var asData: Data { Data(self.utf8) }
+    public var asBase64data: Data? { Data(base64Encoded: self) }
 }

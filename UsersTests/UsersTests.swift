@@ -16,10 +16,10 @@ struct UsersViewModelTests {
     @MainActor
     func testGetUsersSuccess() async throws {
         // Mock JSON files are now in the test bundle
-        let service = NetworkServicesMock(
-            bundle: Bundle(for: BundleTestUsersViewModel.self),
-            mapper: ["/users": "users"]
-        )
+        let mapper = [
+            NetworkMockData(api: "/users", filename: "users", bundlePath: Bundle(for: BundleTestUsersViewModel.self).bundlePath)
+        ]
+        let service = NetworkServicesMock(mapper: mapper)
         let viewModel = UsersViewModel(
             network: Network(
                 service: service,
@@ -38,7 +38,7 @@ struct UsersViewModelTests {
 
     @Test
     @MainActor
-    func testGetAccountsFailure() async {
+    func testGetUsersNetworkFailure() async {
         let viewModel = UsersViewModel(
             network: Network(
                 service: NetworkServicesFailed(),
@@ -54,6 +54,39 @@ struct UsersViewModelTests {
             Issue.record("Should have thrown an error")
         } catch {
             #expect(viewModel.error != nil)
+        }
+    }
+
+    @Test
+    @MainActor
+    func testGetUsersFailed() async throws {
+        // Mock JSON files are now in the test bundle
+        let mapper = [
+            NetworkMockData(api: "/users", filename: "error", bundlePath: Bundle(for: BundleTestUsersViewModel.self).bundlePath)
+        ]
+        let service = NetworkServicesMock(mapper: mapper)
+        let viewModel = UsersViewModel(
+            network: Network(
+                service: service,
+                bearer: nil,
+                customHost: CustomHost(host: "test.local", path: "")
+            ),
+            logger: Logger(category: "UsersViewModelTests"),
+            analytics: Analytics()
+        )
+
+        do {
+            try await viewModel.getUsers()
+        } catch {
+            #expect(Bool(viewModel.users.isEmpty))
+
+            switch viewModel.error {
+            case let .error(reason):
+                #expect(reason.error == "400")
+                #expect(reason.errorDescription == "bad_parameter")
+            default:
+                Issue.record("Should have an error object")
+            }
         }
     }
 }

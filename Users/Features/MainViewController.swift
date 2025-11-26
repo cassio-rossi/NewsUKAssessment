@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "network.error"
         return label
     }()
 
