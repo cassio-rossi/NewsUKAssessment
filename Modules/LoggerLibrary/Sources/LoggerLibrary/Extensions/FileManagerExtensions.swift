@@ -37,14 +37,19 @@ extension FileManager {
 
         let url = documentsDirectory.appendingPathComponent(filename)
 
+        // Ensure documents directory exists
+        try? FileManager.default.createDirectory(at: documentsDirectory,
+                                                 withIntermediateDirectories: true,
+                                                 attributes: nil)
+
         if FileManager.default.fileExists(atPath: url.path),
            let fileHandle = try? FileHandle(forWritingTo: url) {
-            let data = Data(content.utf8)
+            defer { fileHandle.closeFile() }
+            let data = Data("\n\(content)".utf8)
             fileHandle.seekToEndOfFile()
             fileHandle.write(data)
-            fileHandle.closeFile()
         } else {
-            try? "\(content)\n".write(to: url, atomically: true, encoding: .utf8)
+            try? content.write(to: url, atomically: true, encoding: .utf8)
         }
     }
 
