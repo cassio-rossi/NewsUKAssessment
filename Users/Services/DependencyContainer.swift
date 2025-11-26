@@ -31,8 +31,16 @@ final class DependencyContainer {
          logger: LoggerProtocol? = nil,
          analytics: AnalyticsProtocol? = nil) {
 
+        // Check for UI testing and create test-specific UserDefaults
+        let userDefaults: UserDefaults
+        if let suiteName = ProcessInfo.processInfo.environment["UI_TEST_SUITE"] {
+            userDefaults = UserDefaults(suiteName: suiteName) ?? .standard
+        } else {
+            userDefaults = .standard
+        }
+
         // Create core services
-        self.storage = storage ?? StorageService()
+        self.storage = storage ?? StorageService(userDefaults: userDefaults)
         self.logger = logger ?? Logger(category: "Users")
         self.analytics = analytics ?? Analytics()
 

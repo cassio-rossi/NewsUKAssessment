@@ -1,0 +1,59 @@
+{
+    "items": [
+        {
+            "badge_counts": {
+                "bronze": 9345,
+                "silver": 9307,
+                "gold": 893
+            },
+            "account_id": 11683,
+            "is_employee": false,
+            "last_modified_date": 1763043902,
+            "last_access_date": 1764160225,
+            "reputation_change_year": 24084,
+            "reputation_change_quarter": 2765,
+            "reputation_change_month": 1397,
+            "reputation_change_week": 189,
+            "reputation_change_day": 39,
+            "reputation": 1520367,
+            "creation_date": 1222430705,
+            "user_type": "registered",
+            "user_id": 22656,
+            "accept_rate": 86,
+            "location": "Reading, United Kingdom",
+            "website_url": "http://csharpindepth.com",
+            "link": "https://stackoverflow.com/users/22656/jon-skeet",
+            "profile_image": "https://www.gravatar.com/avatar/6d8ebb117e8d83d74ea95fbdd0f87e13?s=256&d=identicon&r=PG",
+            "display_name": "Jon Skeet"
+        },
+        {
+            "badge_counts": {
+                "bronze": 5740,
+                "silver": 4786,
+                "gold": 569
+            },
+            "account_id": 4243,
+            "is_employee": false,
+            "last_modified_date": 1762977901,
+            "last_access_date": 1764147558,
+            "reputation_change_year": 41392,
+            "reputation_change_quarter": 5282,
+            "reputation_change_month": 2425,
+            "reputation_change_week": 252,
+            "reputation_change_day": 8,
+            "reputation": 1359584,
+            "creation_date": 1221344553,
+            "user_type": "registered",
+            "user_id": 6309,
+            "accept_rate": 100,
+            "location": "France",
+            "website_url": "https://devstory.fyi/vonc",
+            "link": "https://stackoverflow.com/users/6309/vonc",
+            "profile_image": "https://i.sstatic.net/I4fiW.jpg?s=256",
+            "display_name": "VonC"
+        }
+    ],
+    "has_more": true,
+    "quota_max": 300,
+    "quota_remaining": 287
+}
