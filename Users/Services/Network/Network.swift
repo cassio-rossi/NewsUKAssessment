@@ -5,15 +5,14 @@ import NetworkLibrary
 struct Network {
 	let service: NetworkServicesProtocol
 	let authorization: [String: String]?
-	let customHost: CustomHost
-	private let logger = Logger(category: "Network")
+    private let logger: LoggerProtocol?
 
-	init(service: NetworkServicesProtocol = NetworkServices(),
+	init(service: NetworkServicesProtocol,
 		 bearer token: String? = nil,
-		 customHost: CustomHost) {
+         logger: LoggerProtocol? = nil) {
 		self.service = service
-		self.customHost = customHost
 		self.authorization = token.map { ["Authorization": "Bearer \($0)"] }
+        self.logger = logger
 	}
 }
 
@@ -63,7 +62,7 @@ extension Network {
 		do {
 			return try decoder.decode(T.self, from: data)
 		} catch {
-			logger.error("JSON parsing failed for \(T.self): \(error.localizedDescription)")
+			logger?.error("JSON parsing failed for \(T.self): \(error.localizedDescription)")
 			return nil
 		}
 	}

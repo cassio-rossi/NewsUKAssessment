@@ -257,11 +257,11 @@ private extension UserCell {
 
     func updateFollowButton() {
         if isFollowing {
-            followButton.setTitle("Following", for: .normal)
+            followButton.setTitle(L10n.Users.Button.following, for: .normal)
             followButton.backgroundColor = .systemGray5
             followButton.setTitleColor(.label, for: .normal)
         } else {
-            followButton.setTitle("Follow", for: .normal)
+            followButton.setTitle(L10n.Users.Button.follow, for: .normal)
             followButton.backgroundColor = .systemBlue
             followButton.setTitleColor(.white, for: .normal)
         }

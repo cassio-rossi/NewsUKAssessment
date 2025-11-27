@@ -9,23 +9,19 @@ public final class NetworkServicesMock: NSObject, NetworkServicesProtocol {
 
 	/// Custom host allows to replace the default host used by the library
 	/// allowing the usage of different environments like `debug`, `qa` or `production`
-	public var customHost: CustomHost?
+	public var customHost: CustomHost
 
 	/// Certificates to be used while URLAuthenticationChallenge as SSL Pinning
 	public private(set) var certificates: [SecCertificate]?
-
-	/// Initialization method
-	public override init() {}
 
     /// Initialization method
     ///
     /// - Parameter customHost: A custom host object to allow override of host, path and api
     /// - Parameter certificates: An array of certificates to help SSL pinning
     /// - Parameter mapper: A NetworkMockData object mapping api against local file for mocking purposes
-    public convenience init(customHost: CustomHost? = nil,
-                            certificates: [SecCertificate]? = nil,
-                            mapper: [NetworkMockData] = []) {
-        self.init()
+    public init(customHost: CustomHost,
+                certificates: [SecCertificate]? = nil,
+                mapper: [NetworkMockData] = []) {
         self.customHost = customHost
         self.certificates = certificates
         self.mapper = mapper
@@ -67,10 +63,17 @@ private extension NetworkServicesMock {
 public final class NetworkServicesFailed: NSObject, NetworkServicesProtocol {
 	/// Custom host allows to replace the default host used by the library
 	/// allowing the usage of different environments like `debug`, `qa` or `production`
-	public var customHost: CustomHost?
+	public var customHost: CustomHost
 
 	/// Certificates to be used while URLAuthenticationChallenge as SSL Pinning
 	public private(set) var certificates: [SecCertificate]?
+
+    /// Initialization method
+    ///
+    /// - Parameter customHost: A custom host object to allow override of host, path and api
+    public init(customHost: CustomHost) {
+        self.customHost = customHost
+    }
 
 	/// HTTP GET Method - Always fails
 	public func get(url: URL, headers: [String: String]? = nil) async throws -> Data {

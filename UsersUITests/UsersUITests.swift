@@ -22,7 +22,7 @@ final class UsersUITests: XCTestCase {
     func testUsersListAndFollowFunctionality() throws {
         // Setup mock data
         let mapper = [
-            NetworkMockData(api: "/users", filename: "users", bundlePath: Bundle(for: UsersUITests.self).bundlePath)
+            NetworkMockData(api: "/2.2/users", filename: "users", bundlePath: Bundle(for: UsersUITests.self).bundlePath)
         ]
 
         let app = XCUIApplication()
@@ -99,7 +99,7 @@ final class UsersUITests: XCTestCase {
     func testUserCellElements() throws {
         // Setup mock data
         let mapper = [
-            NetworkMockData(api: "/users", filename: "users", bundlePath: Bundle(for: UsersUITests.self).bundlePath)
+            NetworkMockData(api: "/2.2/users", filename: "users", bundlePath: Bundle(for: UsersUITests.self).bundlePath)
         ]
 
         let app = XCUIApplication()

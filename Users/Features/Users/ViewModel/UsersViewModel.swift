@@ -9,7 +9,7 @@ final class UsersViewModel {
     // MARK: - Properties -
 
     let network: Network
-    let logger: LoggerProtocol
+    let logger: LoggerProtocol?
     let analytics: AnalyticsProtocol
     let followService: FollowServiceProtocol
 
@@ -19,7 +19,7 @@ final class UsersViewModel {
     // MARK: - Init -
 
     init(network: Network,
-         logger: LoggerProtocol,
+         logger: LoggerProtocol?,
          analytics: AnalyticsProtocol,
          followService: FollowServiceProtocol) {
         self.network = network
@@ -34,15 +34,15 @@ final class UsersViewModel {
 extension UsersViewModel {
     @MainActor
     func getUsers() async throws {
-        let endpoint = UsersEndpoint.users.endpoint(with: network.customHost)
-        logger.debug("Fetching users from: \(endpoint.url)")
+        let endpoint = UsersEndpoint.users.endpoint(with: network.service.customHost)
+        logger?.debug("Fetching users from: \(endpoint.url)")
 
         do {
             self.users = try await network.get(url: endpoint.url)
             self.error = nil
-            logger.info("Retrieved \(users.count) users(s)")
+            logger?.info("Retrieved \(users.count) users(s)")
         } catch let error as ServiceError {
-            logger.error("Failed to fetch users: \(error.description)")
+            logger?.error("Failed to fetch users: \(error.description)")
             self.error = error
             throw error
         }
@@ -63,6 +63,6 @@ extension UsersViewModel {
             name: isFollowing ? "follow_user" : "unfollow_user",
             screen: "Users"
         ))
-        logger.debug("User \(userId) follow status: \(isFollowing)")
+        logger?.debug("User \(userId) follow status: \(isFollowing)")
     }
 }

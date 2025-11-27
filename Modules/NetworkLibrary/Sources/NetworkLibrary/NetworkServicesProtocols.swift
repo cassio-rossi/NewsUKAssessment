@@ -32,7 +32,7 @@ extension NetworkServicesError: CustomStringConvertible {
 public protocol NetworkServicesProtocol {
 	/// Custom host allows to replace the default host used by the library
 	/// allowing the usage of different environments like `debug`, `qa` or `production`
-	var customHost: CustomHost? { get }
+	var customHost: CustomHost { get }
 
 	/// Certificates to be used while URLAuthenticationChallenge as SSL Pinning
 	var certificates: [SecCertificate]? { get }

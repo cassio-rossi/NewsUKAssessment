@@ -11,7 +11,7 @@ public final class NetworkServices: NSObject, NetworkServicesProtocol {
 
 	/// Custom host allows to replace the default host used by the library
 	/// allowing the usage of different environments like `debug`, `qa` or `production`
-	public var customHost: CustomHost?
+	public var customHost: CustomHost
 
 	/// Certificates to be used while URLAuthenticationChallenge as SSL Pinning
 	public private(set) var certificates: [SecCertificate]?
@@ -19,7 +19,7 @@ public final class NetworkServices: NSObject, NetworkServicesProtocol {
 	/// Initialization method
 	///
 	/// - Parameter customHost: A custom host object to allow override of host, path and api
-	public init(customHost: CustomHost? = nil,
+	public init(customHost: CustomHost,
 				certificates: [SecCertificate]? = nil) {
 		self.customHost = customHost
 		self.certificates = certificates

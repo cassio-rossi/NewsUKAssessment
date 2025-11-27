@@ -6,10 +6,10 @@ class MainViewController: UIViewController {
 
     // MARK: - Properties -
 
-    private let logger = Logger(category: "stackoverflow.users")
-    private let analytics = Analytics()
     private let viewModel: UsersViewModel = ViewModelFactory.usersViewModel
     private var usersViewController: UsersCollectionViewController?
+
+    private var logger: LoggerProtocol? { viewModel.logger }
 
     // MARK: - UI Components -
 
@@ -47,7 +47,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Users"
+        title = L10n.Users.title
 
         setupUI()
         setupUsersViewController()
@@ -56,7 +56,7 @@ class MainViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        analytics.track(.screenView(name: "Users"))
+        viewModel.analytics.track(.screenView(name: "Users"))
     }
 }
 
@@ -107,11 +107,11 @@ private extension MainViewController {
             containerView.isHidden = true
             do {
                 try await viewModel.getUsers()
-                logger.info("\(viewModel.users.count) users loaded")
+                logger?.info("\(viewModel.users.count) users loaded")
                 containerView.isHidden = false
                 usersViewController?.update(viewModel: viewModel)
             } catch {
-                logger.error("Failed to load users: \(error)")
+                logger?.error("Failed to load users: \(error)")
                 errorMessage.text = viewModel.error?.description
                 if let message = errorMessage.text, !message.isEmpty {
                     UIAccessibility.post(notification: .announcement, argument: "Error: \(message)")

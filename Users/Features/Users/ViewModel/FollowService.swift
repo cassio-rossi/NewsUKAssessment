@@ -6,8 +6,6 @@ import LoggerLibrary
 
 @MainActor
 protocol FollowServiceProtocol {
-    var followedUsersPublisher: AnyPublisher<Set<Int>, Never> { get }
-
     func isFollowing(userId: Int) -> Bool
     func follow(userId: Int)
     func unfollow(userId: Int)
@@ -30,10 +28,6 @@ final class FollowService: FollowServiceProtocol {
             saveToStorage()
             followedUsersSubject.send(cachedFollowedUsers)
         }
-    }
-
-    var followedUsersPublisher: AnyPublisher<Set<Int>, Never> {
-        followedUsersSubject.eraseToAnyPublisher()
     }
 
     // MARK: - Initialization -

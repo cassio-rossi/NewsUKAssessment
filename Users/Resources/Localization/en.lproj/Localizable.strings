@@ -2,29 +2,11 @@
   English (Base) Localization
 */
 
-// MARK: - General -
-"general.all" = "All";
-"general.create" = "Create";
-"general.cancel" = "Cancel";
-
-// MARK: - Accounts -
-"accounts.segmented.all" = "All";
-"accounts.segmented.in" = "In";
-"accounts.segmented.out" = "Out";
-"accounts.roundup.label" = "Round up";
-"accounts.button.addToGoal" = "Add to Goal";
-"accounts.error.noTransactions" = "No transactions found.";
-"accounts.error.reason" = "Reason: %@";
-
-// MARK: - Goals -
-"goals.title" = "Goals";
-"goals.textfield.placeholder" = "Enter name for a new goal";
-"goals.button.create" = "Create";
-"goals.label.selectGoal" = "or select an existing goal to add the amount";
-"goals.label.amountAvailable" = "Amount available to save: %@";
-"goals.error.cannotProceed" = "Cannot proceed.";
-"goals.error.enterName" = "Enter a name for the Saving Goal.";
-"goals.empty.message" = "There is no Saving Goals to add money.\nCreate a new one.";
+// MARK: - Users -
+"users.title" = "Users";
+"users.button.follow" = "Follow";
+"users.button.following" = "Following";
+"users.error.notfound" = "No users found.";
 
 // MARK: - Network Errors -
 "error.network" = "Network error.";

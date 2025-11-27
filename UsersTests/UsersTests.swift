@@ -26,13 +26,12 @@ struct UsersViewModelTests {
         let mapper = [
             NetworkMockData(api: "/users", filename: "users", bundlePath: Bundle(for: BundleTestUsersViewModel.self).bundlePath)
         ]
-        let service = NetworkServicesMock(mapper: mapper)
+        let service = NetworkServicesMock(
+            customHost: CustomHost(host: "test.local"),
+            mapper: mapper
+        )
         let viewModel = UsersViewModel(
-            network: Network(
-                service: service,
-                bearer: nil,
-                customHost: CustomHost(host: "test.local", path: "")
-            ),
+            network: Network(service: service),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
             followService: createMockFollowService()
@@ -48,11 +47,9 @@ struct UsersViewModelTests {
     @MainActor
     func testGetUsersNetworkFailure() async {
         let viewModel = UsersViewModel(
-            network: Network(
-                service: NetworkServicesFailed(),
-                bearer: "",
-                customHost: CustomHost(host: "test.local", path: "/2.2")
-            ),
+            network: Network(service: NetworkServicesFailed(
+                customHost: CustomHost(host: "test.local")
+            )),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
             followService: createMockFollowService()
@@ -73,13 +70,12 @@ struct UsersViewModelTests {
         let mapper = [
             NetworkMockData(api: "/users", filename: "error", bundlePath: Bundle(for: BundleTestUsersViewModel.self).bundlePath)
         ]
-        let service = NetworkServicesMock(mapper: mapper)
+        let service = NetworkServicesMock(
+            customHost: CustomHost(host: "test.local"),
+            mapper: mapper
+        )
         let viewModel = UsersViewModel(
-            network: Network(
-                service: service,
-                bearer: nil,
-                customHost: CustomHost(host: "test.local", path: "")
-            ),
+            network: Network(service: service),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
             followService: createMockFollowService()
@@ -108,11 +104,7 @@ struct UsersViewModelTests {
         let mockStorage = MockStorage()
         let mockFollowService = FollowService(storage: mockStorage)
         let viewModel = UsersViewModel(
-            network: Network(
-                service: NetworkServicesFailed(),
-                bearer: nil,
-                customHost: CustomHost(host: "test.local", path: "")
-            ),
+            network: Network(service: NetworkServicesFailed(customHost: CustomHost(host: "test.local"))),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
             followService: mockFollowService
@@ -131,11 +123,7 @@ struct UsersViewModelTests {
         let mockStorage = MockStorage()
         let mockFollowService = FollowService(storage: mockStorage)
         let viewModel = UsersViewModel(
-            network: Network(
-                service: NetworkServicesFailed(),
-                bearer: nil,
-                customHost: CustomHost(host: "test.local", path: "")
-            ),
+            network: Network(service: NetworkServicesFailed(customHost: CustomHost(host: "test.local"))),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
             followService: mockFollowService

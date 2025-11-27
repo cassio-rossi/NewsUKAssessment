@@ -12,7 +12,10 @@ struct NetworkServicesTests {
         let mapper = [
             NetworkMockData(api: "example/test", filename: "example", bundlePath: Bundle.module.bundlePath)
         ]
-        let data = try await NetworkServicesMock(mapper: mapper).get(url: host, headers: nil)
+        let data = try await NetworkServicesMock(
+            customHost: CustomHost(host: "example.com"),
+            mapper: mapper
+        ).get(url: host, headers: nil)
         #expect(!data.isEmpty)
     }
 
@@ -22,7 +25,7 @@ struct NetworkServicesTests {
         let host = try #require(URL(string: "invalid"), "Should create valid URL")
 
         await #expect(throws: NetworkServicesError.network) {
-            try await NetworkServicesMock().get(url: host, headers: nil)
+            try await NetworkServicesMock(customHost: CustomHost(host: "example.com")).get(url: host, headers: nil)
         }
     }
 
@@ -32,7 +35,7 @@ struct NetworkServicesTests {
         let host = try #require(URL(string: "invalid"), "Should create valid URL")
 
         await #expect(throws: NetworkServicesError.network) {
-            try await NetworkServicesFailed().get(url: host, headers: nil)
+            try await NetworkServicesFailed(customHost: CustomHost(host: "example.com")).get(url: host, headers: nil)
         }
     }
 }
