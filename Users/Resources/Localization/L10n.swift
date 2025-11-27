@@ -33,10 +33,31 @@ enum L10n {
     // MARK: - Accessibility -
 
     enum Accessibility {
-        static let newGoalField = "accessibility.newGoalField".localized
-        static let createGoalButton = "accessibility.createGoalButton".localized
-        static let previousWeekButton = "accessibility.previousWeekButton".localized
-        static let nextWeekButton = "accessibility.nextWeekButton".localized
+        enum UserCell {
+            static func reputation(_ value: String) -> String {
+                String(format: "accessibility.userCell.reputation".localized, value)
+            }
+
+            static func location(_ value: String) -> String {
+                String(format: "accessibility.userCell.location".localized, value)
+            }
+
+            static func badges(gold: String, silver: String, bronze: String) -> String {
+                String(format: "accessibility.userCell.badges".localized, gold, silver, bronze)
+            }
+
+            enum FollowButton {
+                static func follow(_ name: String) -> String {
+                    String(format: "accessibility.userCell.followButton.follow".localized, name)
+                }
+
+                static func following(_ name: String) -> String {
+                    String(format: "accessibility.userCell.followButton.following".localized, name)
+                }
+
+                static let hint = "accessibility.userCell.followButton.hint".localized
+            }
+        }
     }
 }
 

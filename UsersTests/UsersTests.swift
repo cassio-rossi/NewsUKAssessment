@@ -34,7 +34,8 @@ struct UsersViewModelTests {
             network: Network(service: service),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
-            followService: createMockFollowService()
+            followService: createMockFollowService(),
+            imageLoader: ImageLoader()
         )
 
         try await viewModel.getUsers()
@@ -52,7 +53,8 @@ struct UsersViewModelTests {
             )),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
-            followService: createMockFollowService()
+            followService: createMockFollowService(),
+            imageLoader: ImageLoader()
         )
 
         do {
@@ -78,7 +80,8 @@ struct UsersViewModelTests {
             network: Network(service: service),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
-            followService: createMockFollowService()
+            followService: createMockFollowService(),
+            imageLoader: ImageLoader()
         )
 
         do {
@@ -107,7 +110,8 @@ struct UsersViewModelTests {
             network: Network(service: NetworkServicesFailed(customHost: CustomHost(host: "test.local"))),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
-            followService: mockFollowService
+            followService: mockFollowService,
+            imageLoader: ImageLoader()
         )
 
         let userId = 123
@@ -126,7 +130,8 @@ struct UsersViewModelTests {
             network: Network(service: NetworkServicesFailed(customHost: CustomHost(host: "test.local"))),
             logger: Logger(category: "UsersViewModelTests"),
             analytics: Analytics(),
-            followService: mockFollowService
+            followService: mockFollowService,
+            imageLoader: ImageLoader()
         )
 
         let userId = 456

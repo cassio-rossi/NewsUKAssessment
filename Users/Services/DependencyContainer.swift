@@ -32,6 +32,9 @@ final class DependencyContainer {
     /// Analytics for tracking user behavior
     let analytics: AnalyticsProtocol
 
+    /// Image loader to async download
+    let imageLoader: ImageLoader
+
     // MARK: - Initialization -
 
     init(config: AppConfiguration = DefaultConfiguration(),
@@ -39,7 +42,8 @@ final class DependencyContainer {
          storage: StorageProtocol? = nil,
          followService: FollowServiceProtocol? = nil,
          logger: LoggerProtocol? = nil,
-         analytics: AnalyticsProtocol? = nil) {
+         analytics: AnalyticsProtocol? = nil,
+         imageLoader: ImageLoader? = nil) {
 
         // Check for UI testing and create test-specific UserDefaults
         let userDefaults: UserDefaults = {
@@ -56,6 +60,7 @@ final class DependencyContainer {
         self.storage = storage ?? StorageService(userDefaults: userDefaults)
         self.logger = logger
         self.analytics = analytics ?? Analytics()
+        self.imageLoader = imageLoader ?? ImageLoader()
 
         // Create follow service with dependencies
         self.followService = followService ?? FollowService(

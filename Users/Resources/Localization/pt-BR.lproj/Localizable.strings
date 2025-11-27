@@ -19,3 +19,11 @@
 "accessibility.createGoalButton" = "Botão para criar meta";
 "accessibility.previousWeekButton" = "Semana anterior";
 "accessibility.nextWeekButton" = "Próxima semana";
+
+// MARK: - Accessibility - User Cell -
+"accessibility.userCell.reputation" = "Reputação: %@";
+"accessibility.userCell.location" = "Localização: %@";
+"accessibility.userCell.badges" = "%@ ouro, %@ prata, %@ bronze";
+"accessibility.userCell.followButton.follow" = "Seguir %@";
+"accessibility.userCell.followButton.following" = "Seguindo %@";
+"accessibility.userCell.followButton.hint" = "Toque duas vezes para alternar status de seguir";

@@ -11,8 +11,6 @@ extension URLSession: ImageDataProvider {}
 // MARK: - ImageLoader -
 
 actor ImageLoader {
-    static let shared = ImageLoader()
-
     // MARK: - Properties -
 
     private let cache = NSCache<NSURL, UIImage>()
@@ -21,7 +19,7 @@ actor ImageLoader {
 
     // MARK: - Initialization -
 
-    private init(dataProvider: ImageDataProvider = URLSession.shared) {
+    init(dataProvider: ImageDataProvider = URLSession.shared) {
         self.dataProvider = dataProvider
         cache.countLimit = 100
         cache.totalCostLimit = 50 * 1024 * 1024 // 50 MB

@@ -15,7 +15,8 @@ struct ViewModelFactory {
             ),
             logger: dependencies.logger,
             analytics: dependencies.analytics,
-            followService: dependencies.followService
+            followService: dependencies.followService,
+            imageLoader: dependencies.imageLoader
         )
 	}
 }

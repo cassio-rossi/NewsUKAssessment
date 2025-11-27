@@ -14,8 +14,10 @@
 "error.parsing" = "Error parsing response.";
 "error.missingBody" = "Body is missing.";
 
-// MARK: - Accessibility -
-"accessibility.newGoalField" = "New goal name text field";
-"accessibility.createGoalButton" = "Create goal button";
-"accessibility.previousWeekButton" = "Previous week";
-"accessibility.nextWeekButton" = "Next week";
+// MARK: - Accessibility - User Cell -
+"accessibility.userCell.reputation" = "Reputation: %@";
+"accessibility.userCell.location" = "Location: %@";
+"accessibility.userCell.badges" = "%@ gold, %@ silver, %@ bronze";
+"accessibility.userCell.followButton.follow" = "Follow %@";
+"accessibility.userCell.followButton.following" = "Following %@";
+"accessibility.userCell.followButton.hint" = "Double tap to toggle follow status";

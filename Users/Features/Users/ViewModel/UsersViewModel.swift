@@ -4,7 +4,6 @@ import LoggerLibrary
 import NetworkLibrary
 
 final class UsersViewModel {
-    // MARK: - Definitions -
 
     // MARK: - Properties -
 
@@ -12,6 +11,7 @@ final class UsersViewModel {
     let logger: LoggerProtocol?
     let analytics: AnalyticsProtocol
     let followService: FollowServiceProtocol
+    let imageLoader: ImageLoader
 
     var users = [User]()
     var error: ServiceError?
@@ -21,11 +21,13 @@ final class UsersViewModel {
     init(network: Network,
          logger: LoggerProtocol?,
          analytics: AnalyticsProtocol,
-         followService: FollowServiceProtocol) {
+         followService: FollowServiceProtocol,
+         imageLoader: ImageLoader) {
         self.network = network
         self.logger = logger
         self.analytics = analytics
         self.followService = followService
+        self.imageLoader = imageLoader
     }
 }
 
