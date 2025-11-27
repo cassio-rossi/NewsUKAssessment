@@ -63,22 +63,39 @@ jobs:
         if [ $scheme = default ]; then scheme=$(cat default); fi
         if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-        
+
         set -o pipefail
         # Find an available iPhone simulator
         SIMULATOR=$(xcrun simctl list devices available iPhone | grep -m 1 "iPhone" | sed -E 's/.*\(([0-9A-F-]+)\).*/\1/')
         echo "Using simulator: $SIMULATOR"
 
+        # Boot simulator for UI tests
+        xcrun simctl boot "$SIMULATOR" || true
+        echo "Simulator booted"
+
         xcodebuild test \
           -scheme "$scheme" \
           -sdk iphonesimulator \
           -destination "platform=iOS Simulator,id=$SIMULATOR" \
+          -testPlan Users \
           -resultBundlePath test-results/results.xcresult \
           -enableCodeCoverage YES \
           -skipPackagePluginValidation \
           | tee xcodebuild.log \
           | xcbeautify --report junit --report-path test-results
       continue-on-error: false
+
+    - name: Show test summary
+      if: always()
+      run: |
+        echo "==== Test Summary ===="
+        if [ -f "xcodebuild.log" ]; then
+          echo "Tests executed:"
+          grep -E "Test (Suite|Case)" xcodebuild.log | head -30 || echo "No test cases found in log"
+          echo ""
+          echo "Test results:"
+          grep -E "(passed|failed)" xcodebuild.log | tail -10 || echo "No test results found"
+        fi
 
     - name: Verify test results file
       if: always()
@@ -98,6 +115,6 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: Unit Tests Report
+        name: Test Results (Unit + UI Tests)
         path: test-results/**/*.xml
         reporter: java-junit

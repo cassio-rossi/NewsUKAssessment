@@ -1,7 +1,6 @@
 import NetworkLibrary
 import XCTest
 
-// swiftlint:disable empty_count
 final class UsersUITests: XCTestCase {
 
     @MainActor
