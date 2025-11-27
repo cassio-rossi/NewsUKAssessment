@@ -6,6 +6,7 @@
 "users.title" = "Usuários";
 "users.button.follow" = "Seguir";
 "users.button.following" = "Seguindo";
+"users.button.retry" = "Tentar Novamente";
 "users.error.notfound" = "Nenhum usuário encontrado.";
 
 // MARK: - Network Errors -

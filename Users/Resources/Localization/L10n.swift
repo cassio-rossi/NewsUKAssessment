@@ -14,6 +14,7 @@ enum L10n {
         enum Button {
             static let follow = "users.button.follow".localized
             static let following = "users.button.following".localized
+            static let retry = "users.button.retry".localized
         }
 
         enum Error {

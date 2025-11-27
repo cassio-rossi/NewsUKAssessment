@@ -6,6 +6,7 @@
 "users.title" = "Users";
 "users.button.follow" = "Follow";
 "users.button.following" = "Following";
+"users.button.retry" = "Retry";
 "users.error.notfound" = "No users found.";
 
 // MARK: - Network Errors -
